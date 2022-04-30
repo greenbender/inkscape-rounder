@@ -2,26 +2,25 @@
 <inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
     <_name>Rounder</_name>
     <id>jtx.rounder</id>
-    <dependency type="executable" location="extensions">rounder.py</dependency>
-    <_param name="titleMain" type="description">Rounding helpers.</_param>
-    <_param name="precision" type="int" min="0" max="20" _gui-text="Rounding precission">2</_param>
-    <_param name="paths" type="boolean" _gui-text="Round nodes">True</_param>
-    <_param name="ctrl" type="boolean" _gui-text="Round handles">False</_param>
-    <_param name="along" type="boolean" _gui-text="Move handles following node movement">True</_param>
-    <_param name="half" type="boolean" _gui-text="Allow round to half if nearest">False</_param>
-    <_param name="strokewidth" type="boolean" _gui-text="Round stroke width">False</_param>
-    <_param name="widthheight" type="boolean" _gui-text="Round width and height">False</_param>
-    <_param name="position" type="boolean" _gui-text="Round position X and Y">False</_param>
-    <_param name="opacity" type="boolean" _gui-text="Round global opacity">False</_param>
-    <_param name="strokeopacity" type="boolean" _gui-text="Round stroke opacity">False</_param>
-    <_param name="fillopacity" type="boolean" _gui-text="Round fill opacity">False</_param>
+    <dependency type="executable" location="inx">rounder.py</dependency>
+    <param name="titleMain" type="description">Rounding helpers.</param>
+    <param name="precision" type="int" min="0" max="20" _gui-text="Rounding precission">2</param>
+    <param name="paths" type="bool" _gui-text="Round nodes">1</param>
+    <param name="ctrl" type="bool" _gui-text="Round handles">0</param>
+    <param name="along" type="bool" _gui-text="Move handles following node movement">1</param>
+    <param name="half" type="bool" _gui-text="Allow round to half if nearest">0</param>
+    <param name="strokewidth" type="bool" _gui-text="Round stroke width">0</param>
+    <param name="widthheight" type="bool" _gui-text="Round width and height">0</param>
+    <param name="position" type="bool" _gui-text="Round position X and Y">0</param>
+    <param name="opacity" type="bool" _gui-text="Round global opacity">0</param>
+    <param name="strokeopacity" type="bool" _gui-text="Round stroke opacity">0</param>
+    <param name="fillopacity" type="bool" _gui-text="Round fill opacity">0</param>
     <effect>
-    <effects-menu>
-        <submenu _name="Objects"/>
-    </effects-menu>
+        <effects-menu>
+            <submenu _name="Objects"/>
+        </effects-menu>
     </effect>
     <script>
-        <command reldir="extensions" interpreter="python">rounder.py</command>
+        <command location="inx" interpreter="python">rounder.py</command>
     </script>
 </inkscape-extension>
-

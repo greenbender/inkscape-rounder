@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python3
 '''
 Rounder 0.4
 Based in deprecated "Path Rounder 0.2"
@@ -20,53 +20,54 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 '''
-import random, math, inkex, cubicsuperpath, re
+import inkex, re
+
 
 class svgRounder(inkex.Effect):
     def __init__(self):
         inkex.Effect.__init__(self)
-        self.OptionParser.add_option("--p","--precision",
-                             action="store", type="int",
+        self.arg_parser.add_argument("--p","--precision",
+                             type=int,
                              dest="precision", default=3,
                              help="Precision")
-        self.OptionParser.add_option("-c", "--ctrl",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-c", "--ctrl",
+                        type=inkex.Boolean,
                         dest="ctrl", default = False,
                         help="Round node handles")
-        self.OptionParser.add_option("-a", "--along",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-a", "--along",
+                        type=inkex.Boolean,
                         dest="along", default = True,
                         help="Move handles following node movement")
-        self.OptionParser.add_option("--half",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("--half",
+                        type=inkex.Boolean,
                         dest="half", default = False,
                         help="Allow round to half if nearest")
-        self.OptionParser.add_option("-p", "--paths",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-p", "--paths",
+                        type=inkex.Boolean,
                         dest="paths", default = True,
                         help="Affect to paths")
-        self.OptionParser.add_option("-w", "--widthheight",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-w", "--widthheight",
+                        type=inkex.Boolean,
                         dest="widthheight", default = False,
                         help="Affect to width and height of objects")
-        self.OptionParser.add_option("-x", "--position",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-x", "--position",
+                        type=inkex.Boolean,
                         dest="position", default = False,
                         help="Affect to position of objects")
-        self.OptionParser.add_option("-s", "--strokewidth",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-s", "--strokewidth",
+                        type=inkex.Boolean,
                         dest="strokewidth", default = False,
                         help="Affect to stroke width of objects")
-        self.OptionParser.add_option("-o", "--opacity",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("-o", "--opacity",
+                        type=inkex.Boolean,
                         dest="opacity", default = False,
                         help="Affect to global opacity of objects")
-        self.OptionParser.add_option("--strokeopacity",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("--strokeopacity",
+                        type=inkex.Boolean,
                         dest="strokeopacity", default = False,
                         help="Affect to stroke opcacity of objects")
-        self.OptionParser.add_option("--fillopacity",
-                        action="store", type="inkbool", 
+        self.arg_parser.add_argument("--fillopacity",
+                        type=inkex.Boolean,
                         dest="fillopacity", default = False,
                         help="Affect to fill opcacity of objects")
 
@@ -87,7 +88,7 @@ class svgRounder(inkex.Effect):
     def path_round_it(self,node):
         if node.tag == inkex.addNS('path','svg'):
             d = node.get('d')
-            p = cubicsuperpath.parsePath(d)
+            p = inkex.CubicSuperPath(d)
             for subpath in p:
                 for csp in subpath:
                     delta = self.roundit(csp[1])
@@ -106,7 +107,7 @@ class svgRounder(inkex.Effect):
                         delta = self.roundit(csp[2])
                         csp[2][0]+=delta[0] 
                         csp[2][1]+=delta[1] 
-            node.set('d',cubicsuperpath.formatPath(p))
+            node.set('d', p.to_path())
         elif node.tag == inkex.addNS('g','svg'):
             for e in node:
                 self.path_round_it(e)
@@ -169,7 +170,7 @@ class svgRounder(inkex.Effect):
                 node.set('y', y)
     
     def effect(self):
-        for id, node in self.selected.iteritems():
+        for node in self.svg.selected:
             if self.options.paths:
                 self.path_round_it(node)
             if self.options.strokewidth:
@@ -187,7 +188,7 @@ class svgRounder(inkex.Effect):
 
 if __name__ == '__main__':
     e = svgRounder()
-    e.affect()
+    e.run()
 
 
 # vim: expandtab shiftwidth=4 tabstop=8 softtabstop=4 fileencoding=utf-8 textwidth=99
