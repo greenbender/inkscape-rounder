@@ -3,18 +3,33 @@
     <_name>Rounder</_name>
     <id>jtx.rounder</id>
     <dependency type="executable" location="inx">rounder.py</dependency>
-    <param name="titleMain" type="description">Rounding helpers.</param>
-    <param name="precision" type="int" min="0" max="20" _gui-text="Rounding precission">2</param>
-    <param name="paths" type="bool" _gui-text="Round nodes">1</param>
-    <param name="ctrl" type="bool" _gui-text="Round handles">0</param>
-    <param name="along" type="bool" _gui-text="Move handles following node movement">1</param>
+    <param name="precision" type="int" min="0" max="20" _gui-text="Rounding precision">2</param>
     <param name="half" type="bool" _gui-text="Allow round to half if nearest">0</param>
-    <param name="strokewidth" type="bool" _gui-text="Round stroke width">0</param>
-    <param name="widthheight" type="bool" _gui-text="Round width and height">0</param>
-    <param name="position" type="bool" _gui-text="Round position X and Y">0</param>
-    <param name="opacity" type="bool" _gui-text="Round global opacity">0</param>
-    <param name="strokeopacity" type="bool" _gui-text="Round stroke opacity">0</param>
-    <param name="fillopacity" type="bool" _gui-text="Round fill opacity">0</param>
+    <separator />
+    <_label>Paths</_label>
+    <vbox indent="1">
+        <param name="paths" type="bool" _gui-text="Round nodes">1</param>
+        <param name="ctrl" type="bool" _gui-text="Round handles">0</param>
+        <param name="along" type="bool" _gui-text="Move handles following node movement">1</param>
+    </vbox>
+    <separator />
+    <_label>Shapes</_label>
+    <vbox indent="1">
+        <param name="widthheight" type="bool" _gui-text="Round width and height">0</param>
+        <param name="position" type="bool" _gui-text="Round position X and Y">0</param>
+    </vbox>
+    <separator />
+    <_label>Stroke</_label>
+    <vbox indent="1">
+        <param name="strokewidth" type="bool" _gui-text="Round stroke width">0</param>
+    </vbox>
+    <separator />
+    <_label>Opacity</_label>
+    <vbox indent="1">
+        <param name="opacity" type="bool" _gui-text="Round global opacity">0</param>
+        <param name="strokeopacity" type="bool" _gui-text="Round stroke opacity">0</param>
+        <param name="fillopacity" type="bool" _gui-text="Round fill opacity">0</param>
+    </vbox>
     <effect>
         <effects-menu>
             <submenu _name="Objects"/>

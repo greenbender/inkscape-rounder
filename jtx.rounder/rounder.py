@@ -108,14 +108,14 @@ class svgRounder(inkex.Effect):
     def style_round_it(self, node, name):
         if node.tag == inkex.addNS('g', 'svg'):
             for e in node:
-                self.style_round_it(e)
+                self.style_round_it(e, name)
         elif name in node.style:
             node.style[name] = self.roundUnit(node.style[name])
 
     def attribute_round_it(self, node, name):
         if node.tag == inkex.addNS('g', 'svg'):
             for e in node:
-                self.attribute_round_it(e)
+                self.attribute_round_it(e, name)
         else:
             value = node.get(name)
             if value:
